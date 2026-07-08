@@ -43,6 +43,58 @@ const tools = [
     name: 'context_budget',
     description: 'Get current spending budget stats',
     inputSchema: { type: 'object', properties: {} }
+  },
+  {
+    name: 'router_decide',
+    description: 'Evaluate a task and return model routing. SHADOW MODE by default — records decision but does not execute. Pass execute=true to override.',
+    inputSchema: {
+      type: 'object',
+      required: ['task'],
+      properties: {
+        task: {
+          type: 'object',
+          required: ['title', 'type'],
+          properties: {
+            title: { type: 'string' },
+            type: { type: 'string', enum: ['feature-critical', 'feature', 'bugfix', 'refactor', 'design', 'image', 'other'] },
+            criticality: { type: 'string', enum: ['low', 'medium', 'high', 'critical'] },
+            description: { type: 'string' }
+          }
+        },
+        execute: { type: 'boolean' }
+      }
+    }
+  },
+  {
+    name: 'router_enqueue',
+    description: 'Enqueue a task for execution. Auto-selects maker/verifier based on task type. Shadow mode — recorded but not executed.',
+    inputSchema: {
+      type: 'object',
+      required: ['task'],
+      properties: {
+        task: {
+          type: 'object',
+          required: ['title', 'type'],
+          properties: {
+            title: { type: 'string' },
+            type: { type: 'string', enum: ['feature-critical', 'feature', 'bugfix', 'refactor', 'design', 'image', 'other'] },
+            criticality: { type: 'string', enum: ['low', 'medium', 'high', 'critical'] },
+            description: { type: 'string' }
+          }
+        }
+      }
+    }
+  },
+  {
+    name: 'router_jobs',
+    description: 'List recent jobs or check status of a specific job by ID',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'integer' },
+        status: { type: 'string', enum: ['pending', 'making', 'gating', 'verifying', 'done', 'failed', 'escalated', 'needs_human'] }
+      }
+    }
   }
 ];
 

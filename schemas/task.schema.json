@@ -1,13 +1,12 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "required": ["name", "priority"],
+  "required": ["title", "type"],
   "properties": {
-    "name": { "type": "string", "minLength": 1 },
-    "status": { "type": "string", "enum": ["pending", "in_progress", "done", "blocked", "cancelled"] },
-    "assigned_to": { "type": "string" },
-    "priority": { "type": "integer", "minimum": 1, "maximum": 10 },
-    "blockers": { "type": "array", "items": { "type": "string" } },
-    "notes": { "type": "string" }
+    "title": { "type": "string", "minLength": 1 },
+    "type": { "type": "string", "enum": ["feature-critical", "feature", "bugfix", "refactor", "design", "image", "other"] },
+    "criticality": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+    "description": { "type": "string" },
+    "source": { "type": "string", "description": "Which agent submitted this" }
   }
 }

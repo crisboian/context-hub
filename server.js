@@ -5,6 +5,7 @@ const Database = require('better-sqlite3');
 const config = require('./config');
 const { authMiddleware } = require('./api/auth');
 const setupRoutes = require('./api/routes');
+const setupRouterRoutes = require('./router/routes');
 
 // Use token from env or file
 if (!config.token) {
@@ -54,6 +55,19 @@ db.exec(`
   );
 `);
 
+// Router decisions log
+db.exec(`
+  CREATE TABLE IF NOT EXISTS router_decisions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    job_id INTEGER REFERENCES jobs(id),
+    task_body TEXT NOT NULL,
+    decision TEXT NOT NULL,
+    estimate_eur REAL,
+    shadow INTEGER DEFAULT 1,
+    created_at TEXT DEFAULT (datetime('now'))
+  );
+`);
+
 // LLM calls log
 db.exec(`
   CREATE TABLE IF NOT EXISTS llm_calls (
@@ -91,6 +105,7 @@ app.use(authMiddleware);
 
 // Routes
 setupRoutes(app, db);
+setupRouterRoutes(app, db);
 
 // Start
 app.listen(config.port, '0.0.0.0', () => {
