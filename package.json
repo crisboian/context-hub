@@ -1,0 +1,17 @@
+{
+  "name": "context-hub",
+  "version": "1.0.0",
+  "description": "Collaborative agent context system for Hermes, Claw, OpenCode & Claude Code",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "health": "curl -s http://localhost:8720/health | jq ."
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^9.4.3",
+    "ajv": "^8.12.0",
+    "dotenv": "^16.3.1"
+  }
+}

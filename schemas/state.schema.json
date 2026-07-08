@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["agent", "status"],
+  "properties": {
+    "agent": { "type": "string", "enum": ["hermes", "claw", "opencode", "claude-code", "human:cris"] },
+    "status": { "type": "string", "minLength": 1 },
+    "current_task": { "type": "string" },
+    "last_action": { "type": "string" },
+    "next_action": { "type": "string" }
+  }
+}

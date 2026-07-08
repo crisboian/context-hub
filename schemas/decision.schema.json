@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["title", "problem", "decision"],
+  "properties": {
+    "title": { "type": "string", "minLength": 1 },
+    "problem": { "type": "string", "minLength": 1 },
+    "decision": { "type": "string", "minLength": 1 },
+    "alternatives": { "type": "array", "items": { "type": "string" } },
+    "context": { "type": "string" }
+  }
+}
